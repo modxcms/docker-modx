@@ -5,7 +5,7 @@ current="$(curl -sSL 'https://api.github.com/repos/modxcms/revolution/tags' | se
 
 curl -o modx.zip -sSL https://modx.com/download/direct/modx-$current.zip
 
-sha1="$(sha1sum modx.zip | sed -n 's/ .*//p')"
+sha1="$(sha1sum modx.zip | sed -r 's/ .*//')"
 
 for variant in apache fpm; do
 	(
