@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-current="$(curl -sSL 'https://api.github.com/repos/modxcms/revolution/tags' | sed -n 's/^.*"name": "v\([^"]*-pl\)".*$/\1/p' | head -n1)"
+current="$(curl -sSL 'https://api.github.com/repos/modxcms/revolution/tags' | sed -n 's/^.*"name": "v\([^"]*\)-pl".*$/\1/p' | head -n1)"
 
-curl -o modx.zip -sSL https://modx.com/download/direct/modx-$current.zip
+curl -o modx.zip -sSL https://modx.com/download/direct/modx-$current-pl.zip
 
 sha1="$(sha1sum modx.zip | sed -r 's/ .*//')"
 
