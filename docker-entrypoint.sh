@@ -47,9 +47,54 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 
     echo >&2 "Complete! MODX has been successfully copied to $(pwd)"
 
-    # TODO: Install MODX
+		cat > setup/config.xml <<EOF
+<modx>
+	<database_type>mysql</database_type>
+	<database_server>$MODX_DB_HOST</database_server>
+	<database>$MODX_DB_NAME</database>
+	<database_user>$MODX_DB_USER</database_user>
+	<database_password>$MODX_DB_PASSWORD</database_password>
+	<database_connection_charset>utf8</database_connection_charset>
+	<database_charset>utf8</database_charset>
+	<database_collation>utf8_general_ci</database_collation>
+	<table_prefix>$MODX_TABLE_PREFIX</table_prefix>
+	<https_port>443</https_port>
+	<http_host>localhost</http_host>
+	<cache_disabled>0</cache_disabled>
+
+	<inplace>1</inplace>
+	<unpacked>0</unpacked>
+	<language>en</language>
+
+	<cmsadmin>$MODX_ADMIN_USER</cmsadmin>
+  <cmspassword>$MODX_ADMIN_PASSWORD</cmspassword>
+	<cmsadminemail>$MODX_ADMIN_EMAIL</cmsadminemail>
+
+	<core_path>/var/www/html/core/</core_path>
+	<context_mgr_path>/var/www/html/manager/</context_mgr_path>
+	<context_mgr_url>/manager/</context_mgr_url>
+	<context_connectors_path>/var/www/html/connectors/</context_connectors_path>
+	<context_connectors_url>/connectors/</context_connectors_url>
+	<context_web_path>/var/www/html/</context_web_path>
+	<context_web_url>/</context_web_url>
+
+	<remove_setup_directory>1</remove_setup_directory>
+</modx>
+EOF
+    php setup/index.php --installmode=new
   else
     # TODO: Check version and upgrade if it is neeeded
+
+#		cat > setup/config.xml <<EOF
+#<modx>
+#  <inplace>1</inplace>
+#  <unpacked>0</unpacked>
+#  <language>en</language>
+#
+#  <remove_setup_directory>1</remove_setup_directory>
+#</modx>
+#EOF
+#		php setup/index.php --installmode=upgrade
 	fi
 
 	TERM=dumb php -- "$MODX_DB_HOST" "$MODX_DB_USER" "$MODX_DB_PASSWORD" "$MODX_DB_NAME" <<'EOPHP'
