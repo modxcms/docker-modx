@@ -15,10 +15,10 @@ ENV MODX_VERSION 2.4.3
 ENV MODX_SHA1 0
 
 # upstream tarballs include ./modx-${MODX_VERSION}/
-RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}.zip \
+RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl.zip \
 	&& echo "$MODX_SHA1 *modx.zip" | sha1sum -c - \
 	&& unzip modx.zip -d /usr/src \
-  && mv /usr/src/modx-${MODX-VERSION} /usr/src/modx \
+  && mv /usr/src/modx-${MODX-VERSION}-pl /usr/src/modx \
   && find /usr/src/modx -name 'ht.access' -exec bash -c 'mv $0 ${0/ht.access/.htaccess}' {} \; \
   && rm modx.zip \
 	&& chown -R www-data:www-data /usr/src/modx
