@@ -7,7 +7,7 @@
    <database_connection_charset>utf8</database_connection_charset>
    <database_charset>utf8</database_charset>
    <database_collation>utf8_general_ci</database_collation>
-   <table_prefix></table_prefix>
+   <table_prefix>{{ MODX_TABLE_PREFIX }}</table_prefix>
    <https_port>443</https_port>
    <http_host>localhost</http_host>
    <cache_disabled>0</cache_disabled>
