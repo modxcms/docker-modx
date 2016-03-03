@@ -75,6 +75,8 @@ EOPHP
 
     echo >&2 "Complete! MODX has been successfully copied to $(pwd)"
 
+		: ${MODX_ADMIN_USER:='admin'}
+
 		cat > setup/config.xml <<EOF
 <modx>
 	<database_type>mysql</database_type>
