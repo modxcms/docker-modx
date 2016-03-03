@@ -21,7 +21,7 @@ RUN { \
 # set timezone
 RUN { \
 		echo 'date.timezone=GMT+0'; \
-	} > /usr/local/etc/php/conf.d/datatime.ini
+	} > /usr/local/etc/php/conf.d/datetime.ini
 
 VOLUME /var/www/html
 

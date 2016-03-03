@@ -23,7 +23,7 @@ RUN { \
 # set timezone
 RUN { \
 		echo 'date.timezone=GMT+0'; \
-	} > /usr/local/etc/php/conf.d/datatime.ini
+	} > /usr/local/etc/php/conf.d/datetime.ini
 
 VOLUME /var/www/html
 
@@ -36,6 +36,7 @@ RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl
 	&& unzip modx.zip -d /usr/src \
   && mv /usr/src/modx-${MODX_VERSION}-pl /usr/src/modx \
   && find /usr/src/modx -name 'ht.access' -exec bash -c 'mv $0 ${0/ht.access/.htaccess}' {} \; \
+	&& touch /usr/src/modx/core/config/config.inc.php \
   && rm modx.zip \
 	&& chown -R www-data:www-data /usr/src/modx
 
