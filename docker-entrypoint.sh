@@ -97,7 +97,7 @@ EOPHP
 	<language>en</language>
 
 	<cmsadmin>$MODX_ADMIN_USER</cmsadmin>
-  <cmspassword>$MODX_ADMIN_PASSWORD</cmspassword>
+	<cmspassword>$MODX_ADMIN_PASSWORD</cmspassword>
 	<cmsadminemail>$MODX_ADMIN_EMAIL</cmsadminemail>
 
 	<core_path>/var/www/html/core/</core_path>
@@ -112,9 +112,8 @@ EOPHP
 </modx>
 EOF
     php setup/index.php --installmode=new
-  else
-    # TODO: Check version and upgrade if it is neeeded
-
+#  else
+# 	TODO: Check version and upgrade if it is neeeded
 #		cat > setup/config.xml <<EOF
 #<modx>
 #  <inplace>1</inplace>
