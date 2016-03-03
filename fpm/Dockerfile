@@ -18,6 +18,11 @@ RUN { \
 		echo 'opcache.enable_cli=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
+# set timezone
+RUN { \
+		echo 'date.timezone=GMT+0'; \
+	} > /usr/local/etc/php/conf.d/datatime.ini
+
 VOLUME /var/www/html
 
 ENV MODX_VERSION 2.4.3

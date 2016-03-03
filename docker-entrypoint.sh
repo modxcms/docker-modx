@@ -111,6 +111,7 @@ EOPHP
 	<remove_setup_directory>1</remove_setup_directory>
 </modx>
 EOF
+
     php setup/index.php --installmode=new
 #  else
 # 	TODO: Check version and upgrade if it is neeeded
