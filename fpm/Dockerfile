@@ -5,7 +5,7 @@ MAINTAINER Vadim Homchik <homchik@gmail.com> (@vh)
 # install the PHP extensions we need
 RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev unzip && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd mysqli opcache mbstring pdo pdo_mysql xml zlib
+	&& docker-php-ext-install gd mysqli opcache pdo pdo_mysql
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -27,7 +27,7 @@ ENV MODX_SHA1 84dabd1bf32c7c6e8778e97df1737686f1973cc0
 RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl.zip \
 	&& echo "$MODX_SHA1 *modx.zip" | sha1sum -c - \
 	&& unzip modx.zip -d /usr/src \
-  && mv /usr/src/modx-${MODX-VERSION}-pl /usr/src/modx \
+  && mv /usr/src/modx-${MODX_VERSION}-pl /usr/src/modx \
   && find /usr/src/modx -name 'ht.access' -exec bash -c 'rm $0' {} \; \
   && rm modx.zip \
 	&& chown -R www-data:www-data /usr/src/modx
