@@ -63,7 +63,7 @@ if (!$mysql->query('CREATE DATABASE IF NOT EXISTS `' . $mysql->real_escape_strin
 $mysql->close();
 EOPHP
 
-	if ! [ -e index.php ]; then
+	if ! [ -e index.php -a -e core/config/config.inc.php ]; then
 		echo >&2 "MODX not found in $(pwd) - copying now..."
 
 		if [ "$(ls -A)" ]; then
