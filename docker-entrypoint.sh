@@ -78,6 +78,7 @@ EOPHP
     echo >&2 "Complete! MODX has been successfully copied to $(pwd)"
 
 		: ${MODX_ADMIN_USER:='admin'}
+		: ${MODX_ADMIN_PASSWORD:='admin'}
 
 		cat > setup/config.xml <<EOF
 <modx>

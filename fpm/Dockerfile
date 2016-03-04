@@ -34,6 +34,7 @@ RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl
 	&& unzip modx.zip -d /usr/src \
   && mv /usr/src/modx-${MODX_VERSION}-pl /usr/src/modx \
   && find /usr/src/modx -name 'ht.access' -exec bash -c 'rm $0' {} \; \
+	&& touch /usr/src/modx/core/config/config.inc.php \
   && rm modx.zip \
 	&& chown -R www-data:www-data /usr/src/modx
 
