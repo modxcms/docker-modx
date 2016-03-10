@@ -80,7 +80,7 @@ EOPHP
 		: ${MODX_ADMIN_USER:='admin'}
 		: ${MODX_ADMIN_PASSWORD:='admin'}
 
-		cat > setup/config.xml <<EOF
+		cat > setup/config.xml <<'EOF'
 <modx>
 	<database_type>mysql</database_type>
 	<database_server>$MODX_DB_HOST</database_server>
@@ -117,32 +117,28 @@ EOF
 
     php setup/index.php --installmode=new
   else
-		UPGRADE=`TERM=dumb php -- "$MODX_VERSION" <<'EOPHP'
+		UPGRADE=$(TERM=dumb php -- "$MODX_VERSION" <<'EOPHP'
 <?php
-require_once 'config.core.php';
-require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
-
-$modx = new modX();
-$modx->initialize('web');
+define('MODX_API_MODE', true);
+require_once 'index.php';
 
 if (version_compare($modx->getVersionData()['full_version'], $argv[1]) == -1) {
-	return true;
-} else {
-	return false;
+	echo 1;
 }
-EOPHP`
+EOPHP
+)
 
 		if [ $UPGRADE ]; then
 			echo >&2 "Upgrading MODX..."
 
-			cp -r /usr/modx/setup .
+			cp -r /usr/src/modx/setup .
 
-			cat > setup/config.xml <<EOF
+			cat > setup/config.xml <<'EOF'
 <modx>
- <inplace>1</inplace>
- <unpacked>0</unpacked>
- <language>en</language>
- <remove_setup_directory>1</remove_setup_directory>
+	<inplace>1</inplace>
+	<unpacked>0</unpacked>
+	<language>en</language>
+	<remove_setup_directory>1</remove_setup_directory>
 </modx>
 EOF
 
