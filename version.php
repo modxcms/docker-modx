@@ -1,8 +1,8 @@
 <?php
-define('MODX_API_MODE', true);
-require 'index.php';
+require_once 'config.core.php';
+require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
 
-$modx->setLogTarget('ECHO');
-$modx->setLogLevel(modX::LOG_LEVEL_INFO);
+$modx = new modX();
+$modx->initialize('web');
 
 echo $modx->getVersionData()['full_version'];
