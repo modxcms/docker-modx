@@ -3,9 +3,10 @@ FROM php:5.6-fpm
 MAINTAINER Vadim Homchik <homchik@gmail.com> (@vh)
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev unzip && rm -rf /var/lib/apt/lists/* \
+# opcache temporary removed till https://github.com/vh/docker-modx/issues/4
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev unzip sudo && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd mysqli opcache pdo pdo_mysql
+	&& docker-php-ext-install gd mysqli pdo pdo_mysql
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -34,7 +35,6 @@ RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl
 	&& unzip modx.zip -d /usr/src \
   && mv /usr/src/modx-${MODX_VERSION}-pl /usr/src/modx \
   && find /usr/src/modx -name 'ht.access' -exec bash -c 'rm $0' {} \; \
-	&& touch /usr/src/modx/core/config/config.inc.php \
   && rm modx.zip \
 	&& chown -R www-data:www-data /usr/src/modx
 

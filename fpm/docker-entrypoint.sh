@@ -114,8 +114,9 @@ EOPHP
 	<remove_setup_directory>1</remove_setup_directory>
 </modx>
 EOF
+		chown www-data:www-data setup/config.xml
 
-    php setup/index.php --installmode=new
+    sudo -u www-data php setup/index.php --installmode=new
   else
 		UPGRADE=$(TERM=dumb php -- "$MODX_VERSION" <<'EOPHP'
 <?php
@@ -131,7 +132,9 @@ EOPHP
 		if [ $UPGRADE ]; then
 			echo >&2 "Upgrading MODX..."
 
-			cp -r /usr/src/modx/setup .
+			sudo -u www-data mkdir setup
+
+			tar cf - --one-file-system -C /usr/src/modx/setup . | tar xf - -C setup
 
 			cat > setup/config.xml <<'EOF'
 <modx>
@@ -141,8 +144,9 @@ EOPHP
 	<remove_setup_directory>1</remove_setup_directory>
 </modx>
 EOF
+			chown www-data:www-data setup/config.xml
 
-			php setup/index.php --installmode=upgrade
+			sudo -u www-data php setup/index.php --installmode=upgrade
 		fi
 	fi
 fi
