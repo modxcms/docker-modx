@@ -1,14 +1,13 @@
-FROM php:5.6-apache
+FROM php:7.0-apache
 
 MAINTAINER Vadim Homchik <homchik@gmail.com> (@vh)
 
 RUN a2enmod rewrite
 
 # install the PHP extensions we need
-# opcache temporary removed till https://github.com/vh/docker-modx/issues/4
 RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev unzip sudo && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd mysqli pdo pdo_mysql
+	&& docker-php-ext-install gd opcache mysqli pdo pdo_mysql
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -28,8 +27,8 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV MODX_VERSION 2.4.3
-ENV MODX_SHA1 84dabd1bf32c7c6e8778e97df1737686f1973cc0
+ENV MODX_VERSION 2.5.0
+ENV MODX_SHA1 eab878fbb266ce1912fba1f92cf42a9a6fd4616d
 
 # upstream tarballs include ./modx-${MODX_VERSION}/
 RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl.zip \

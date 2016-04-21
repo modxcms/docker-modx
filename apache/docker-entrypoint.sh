@@ -80,7 +80,7 @@ EOPHP
 		: ${MODX_ADMIN_USER:='admin'}
 		: ${MODX_ADMIN_PASSWORD:='admin'}
 
-		cat > setup/config.xml <<'EOF'
+		cat > setup/config.xml <<EOF
 <modx>
 	<database_type>mysql</database_type>
 	<database_server>$MODX_DB_HOST</database_server>
@@ -136,7 +136,7 @@ EOPHP
 
 			tar cf - --one-file-system -C /usr/src/modx/setup . | tar xf - -C setup
 
-			cat > setup/config.xml <<'EOF'
+			cat > setup/config.xml <<EOF
 <modx>
 	<inplace>1</inplace>
 	<unpacked>0</unpacked>
