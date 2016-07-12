@@ -4,7 +4,7 @@ This is the Git repo of the Docker image for MODX.
 
 ## How to use this image
 docker-compose.yml
-```
+```yml
 web:
   image: modx
   links:
