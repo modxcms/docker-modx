@@ -3,7 +3,7 @@ set -e
 
 cd "$(dirname "$(readlink -f "$BASH_SOURCE")")"
 
-url='git://github.com/vh/docker-modx'
+url='git://github.com/docker-modx/docker-modx'
 
 echo '# maintainer: Vadim Homchik <homchik@gmail.com> (@vh)'
 
