@@ -6,7 +6,7 @@ This is the Git repo of the Docker image for MODX.
 docker-compose.yml
 ```yml
 web:
-  image: modx
+  image: maki/modx
   links:
     - db:mysql
   ports:

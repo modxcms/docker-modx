@@ -27,8 +27,8 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV MODX_VERSION 2.5.6
-ENV MODX_SHA1 4d252c7fbd996944fb7d9b126c1242e0deeaddbf
+ENV MODX_VERSION 2.6.0
+ENV MODX_SHA1 6a45f699a7bfb874fad9185432c6e948a80af5ca
 
 # upstream tarballs include ./modx-${MODX_VERSION}/
 RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl.zip \
