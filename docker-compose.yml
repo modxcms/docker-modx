@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    image: maki/modx
+    links:
+      - 'db:mysql'
+    ports:
+      - '8000:80'
+    environment:
+      MODX_VERSION: 2.6.3
+      MODX_DB_HOST: 'mysql:3306'
+      MODX_DB_PASSWORD: modx
+      MODX_DB_USER: modx
+      MODX_DB_NAME: modx
+    volumes:
+      - './html:/var/www/html'
+  db:
+    image: 'mysql:5.7'
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: modx
+      MYSQL_USER: modx
+      MYSQL_PASSWORD: modx
+    ports:
+      - '3306:3306'
+    command: mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
