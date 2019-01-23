@@ -3,19 +3,13 @@
 This is the Git repo of the Docker image for MODX.
 
 ## How to use this image
-docker-compose.yml
-```yml
-web:
-  image: maki/modx
-  links:
-    - db:mysql
-  ports:
-    - 80:80
-db:
-  image: mysql
-  environment:
-    MYSQL_ROOT_PASSWORD: example
-  ports:
-    - 3306:3306
-  command: mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
+
+1. Start docker containers
+```sh
+docker-compose build
+docker-compose up -d
 ```
+
+2. Copy MODX code into `html` folder
+
+3. Visit [localhost:8000](http://localhost:8000)
