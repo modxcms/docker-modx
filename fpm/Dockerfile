@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:7.1-fpm
 
 MAINTAINER Vadim Homchik <homchik@gmail.com> (@vh)
 
