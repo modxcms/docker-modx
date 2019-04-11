@@ -7,7 +7,7 @@ services:
     ports:
       - '8000:80'
     environment:
-      MODX_VERSION: 2.6.3
+      MODX_VERSION: 2.7.0
       MODX_DB_HOST: 'mysql:3306'
       MODX_DB_PASSWORD: modx
       MODX_DB_USER: modx
@@ -24,3 +24,5 @@ services:
     ports:
       - '3306:3306'
     command: mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
+    volumes:
+      - './mysql:/var/lib/mysql'
