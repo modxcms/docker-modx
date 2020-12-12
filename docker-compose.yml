@@ -14,6 +14,7 @@ services:
       MODX_DB_NAME: modx
     volumes:
       - './html:/var/www/html'
+      - '/etc/localtime:/etc/localtime:ro'
   db:
     image: 'mysql:5.7'
     environment:
@@ -26,3 +27,4 @@ services:
     command: mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
     volumes:
       - './mysql:/var/lib/mysql'
+      - '/etc/localtime:/etc/localtime:ro'
