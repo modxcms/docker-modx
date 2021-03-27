@@ -1,28 +1,34 @@
 version: '3'
 services:
   web:
-    image: maki/modx
+    image: modx
+    build:
+      context: ./apache
+      args:
+        - MODX_VERSION
+        - MODX_SHA1
     links:
       - 'db:mysql'
     ports:
       - '8000:80'
     environment:
-      MODX_VERSION: 2.7.0
-      MODX_DB_HOST: 'mysql:3306'
-      MODX_DB_PASSWORD: modx
-      MODX_DB_USER: modx
-      MODX_DB_NAME: modx
-      MODX_LANGUAGE: en
+      - MODX_VERSION
+      - MODX_SHA1
+      - MODX_DB_HOST
+      - MODX_DB_PASSWORD
+      - MODX_DB_USER
+      - MODX_DB_NAME
+      - MODX_LANGUAGE
     volumes:
       - './html:/var/www/html'
       - '/etc/localtime:/etc/localtime:ro'
   db:
     image: 'mysql:5.7'
     environment:
-      MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: modx
-      MYSQL_USER: modx
-      MYSQL_PASSWORD: modx
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MODX_DB_NAME}"
+      MYSQL_USER: "${MODX_DB_USER}"
+      MYSQL_PASSWORD: "${MODX_DB_PASSWORD}"
     ports:
       - '3306:3306'
     command: mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
