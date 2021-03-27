@@ -12,6 +12,7 @@ services:
       MODX_DB_PASSWORD: modx
       MODX_DB_USER: modx
       MODX_DB_NAME: modx
+      MODX_LANGUAGE: en
     volumes:
       - './html:/var/www/html'
       - '/etc/localtime:/etc/localtime:ro'
