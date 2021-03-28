@@ -22,7 +22,7 @@ services:
       - './html:/var/www/html'
       - '/etc/localtime:/etc/localtime:ro'
   db:
-    image: 'mysql:5.7'
+    image: 'mariadb:10.1'
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${MODX_DB_NAME}"
