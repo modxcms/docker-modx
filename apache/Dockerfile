@@ -26,6 +26,10 @@ RUN { \
 
 VOLUME /var/www/html
 
+# Old versions of Docker don't use ARG? Here's the ENV just in case
+#ENV MODX_VERSION 2.8.1
+#ENV MODX_SHA1 7dd95a25be5989a03ce58ef77adce79b341aa1f4
+
 ARG MODX_VERSION
 ARG MODX_SHA1
 
