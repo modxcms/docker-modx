@@ -19,6 +19,10 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 		exit 1
 	fi
 
+	if [ -z "$MODX_LANGUAGE" ]; then
+		  MODX_LANGUAGE='en'
+	fi
+
 	# if we're linked to MySQL and thus have credentials already, let's use them
 	: ${MODX_DB_USER:=${MYSQL_ENV_MYSQL_USER:-root}}
 	if [ "$MODX_DB_USER" = 'root' ]; then
@@ -97,7 +101,7 @@ EOPHP
 
 	<inplace>1</inplace>
 	<unpacked>0</unpacked>
-	<language>en</language>
+	<language>$MODX_LANGUAGE</language>
 
 	<cmsadmin>$MODX_ADMIN_USER</cmsadmin>
 	<cmspassword>$MODX_ADMIN_PASSWORD</cmspassword>
@@ -140,7 +144,7 @@ EOPHP
 <modx>
 	<inplace>1</inplace>
 	<unpacked>0</unpacked>
-	<language>en</language>
+	<language>$MODX_LANGUAGE</language>
 	<remove_setup_directory>1</remove_setup_directory>
 </modx>
 EOF

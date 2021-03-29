@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.3-fpm
 
 MAINTAINER Vadim Homchik <homchik@gmail.com> (@vh)
 
@@ -24,8 +24,12 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV MODX_VERSION 2.7.0
-ENV MODX_SHA1 79f7399b6cb2a7508852f2e82821a0d5670ef41f
+# Old versions of Docker don't use ARG? Here's the ENV just in case
+#ENV MODX_VERSION 2.8.1
+#ENV MODX_SHA1 7dd95a25be5989a03ce58ef77adce79b341aa1f4
+
+ARG MODX_VERSION
+ARG MODX_SHA1
 
 # upstream tarballs include ./modx-${MODX_VERSION}/
 RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl.zip \
