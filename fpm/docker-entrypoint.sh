@@ -42,6 +42,9 @@ $stderr = fopen('php://stderr', 'w');
 list($host, $port) = explode(':', $argv[1], 2);
 
 $maxTries = 10;
+
+mysqli_report(MYSQLI_REPORT_ALL ^ MYSQLI_REPORT_STRICT);
+
 do {
 	$mysql = new mysqli($host, $argv[2], $argv[3], '', (int)$port);
 	if ($mysql->connect_error) {
@@ -75,7 +78,7 @@ EOPHP
 
 		tar cf - --one-file-system -C /usr/src/modx . | tar xf -
 
-    echo >&2 "Complete! MODX has been successfully copied to $(pwd)"
+		echo >&2 "Complete! MODX has been successfully copied to $(pwd)"
 
 		: ${MODX_ADMIN_USER:='admin'}
 		: ${MODX_ADMIN_PASSWORD:='admin'}
@@ -116,8 +119,8 @@ EOPHP
 EOF
 		chown www-data:www-data setup/config.xml
 
-    sudo -u www-data php setup/index.php --installmode=new
-  else
+		sudo -u www-data php setup/index.php --installmode=new
+	else
 		UPGRADE=$(TERM=dumb php -- "$MODX_VERSION" <<'EOPHP'
 <?php
 define('MODX_API_MODE', true);

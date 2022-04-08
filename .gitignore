@@ -1,0 +1,3 @@
+# Ignore folders containing the data
+html/**
+mysql/**

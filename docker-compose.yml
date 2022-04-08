@@ -1,28 +1,58 @@
-version: '3'
+version: '3.1'
+
 services:
-  web:
-    image: maki/modx
-    links:
-      - 'db:mysql'
+
+  modx:
+    image: modx:3.0.4
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
+      tags: ['3.0.4']
+    container_name: modx
+    depends_on:
+      - mariadb
     ports:
       - '8000:80'
     environment:
-      MODX_VERSION: 2.7.0
-      MODX_DB_HOST: 'mysql:3306'
+      MODX_VERSION: 3.0.4
+      MODX_DB_HOST: mariadb:3306
       MODX_DB_PASSWORD: modx
       MODX_DB_USER: modx
       MODX_DB_NAME: modx
     volumes:
-      - './html:/var/www/html'
-  db:
-    image: 'mysql:5.7'
+      # - './html:/var/www/html'
+      - type: volume
+        source: modx.html
+        target: /var/www/html
+
+  mariadb:
+    image: mariadb:11.2
+    container_name: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: modx
-      MYSQL_USER: modx
-      MYSQL_PASSWORD: modx
+      MARIADB_ROOT_PASSWORD: mysql
+      MARIADB_DATABASE: modx
+      MARIADB_USER: modx
+      MARIADB_PASSWORD: modx
     ports:
       - '3306:3306'
-    command: mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
     volumes:
-      - './mysql:/var/lib/mysql'
+      # - './mysql:/var/lib/mysql'
+      - type: volume
+        source: mariadb.data
+        target: /var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.2
+    container_name: phpmyadmin
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - 8001:80
+
+volumes:
+  modx.html:
+  mariadb.data:

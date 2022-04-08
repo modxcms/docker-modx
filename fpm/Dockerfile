@@ -1,11 +1,11 @@
-FROM php:7.1-fpm
+FROM php:8.1-fpm
 
-MAINTAINER Vadim Homchik <homchik@gmail.com> (@vh)
+LABEL maintainer="Vadim Homchik <homchik@gmail.com> (@vh)"
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev unzip sudo && rm -rf /var/lib/apt/lists/* \
-	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd opcache mysqli pdo pdo_mysql
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libzip-dev zip unzip sudo && rm -rf /var/lib/apt/lists/* \
+	&& docker-php-ext-configure gd --with-jpeg=/usr \
+	&& docker-php-ext-install bcmath gd opcache mysqli pdo pdo_mysql zip
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -24,16 +24,16 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV MODX_VERSION 2.7.0
-ENV MODX_SHA1 79f7399b6cb2a7508852f2e82821a0d5670ef41f
+ENV MODX_VERSION 3.0.4
+ENV MODX_SHA1 d8a4eb22e60b4cef0ae85d26e8a5ac3669214251
 
 # upstream tarballs include ./modx-${MODX_VERSION}/
 RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl.zip \
 	&& echo "$MODX_SHA1 *modx.zip" | sha1sum -c - \
 	&& unzip modx.zip -d /usr/src \
-  && mv /usr/src/modx-${MODX_VERSION}-pl /usr/src/modx \
-  && find /usr/src/modx -name 'ht.access' -exec bash -c 'rm $0' {} \; \
-  && rm modx.zip \
+	&& mv /usr/src/modx-${MODX_VERSION}-pl /usr/src/modx \
+	&& find /usr/src/modx -name 'ht.access' -exec bash -c 'rm $0' {} \; \
+	&& rm modx.zip \
 	&& chown -R www-data:www-data /usr/src/modx
 
 COPY docker-entrypoint.sh /entrypoint.sh
