@@ -42,7 +42,8 @@ services:
         target: /var/lib/mysql
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.2
+    # image: phpmyadmin/phpmyadmin:5.2
+    image: arm64v8/phpmyadmin:5.2
     container_name: phpmyadmin
     depends_on:
       - mariadb
