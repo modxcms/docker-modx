@@ -7,7 +7,6 @@ services:
     build:
       context: ./apache
       dockerfile: Dockerfile
-      tags: ['3.0.4']
     container_name: modx
     depends_on:
       - mariadb
