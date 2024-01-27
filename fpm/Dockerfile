@@ -1,6 +1,7 @@
-FROM php:8.1-fpm
+FROM php:8.3.2-fpm
 
-LABEL maintainer="Vadim Homchik <homchik@gmail.com> (@vh)"
+ENV MODX_VERSION 3.0.4
+ENV MODX_SHA1 d8a4eb22e60b4cef0ae85d26e8a5ac3669214251
 
 # install the PHP extensions we need
 RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libzip-dev zip unzip sudo && rm -rf /var/lib/apt/lists/* \
@@ -23,9 +24,6 @@ RUN { \
 	} > /usr/local/etc/php/conf.d/datetime.ini
 
 VOLUME /var/www/html
-
-ENV MODX_VERSION 3.0.4
-ENV MODX_SHA1 d8a4eb22e60b4cef0ae85d26e8a5ac3669214251
 
 # upstream tarballs include ./modx-${MODX_VERSION}/
 RUN curl -o modx.zip -SL http://modx.com/download/direct/modx-${MODX_VERSION}-pl.zip \
